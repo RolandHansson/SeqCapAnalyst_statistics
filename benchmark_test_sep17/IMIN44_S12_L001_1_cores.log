@@ -1,0 +1,7 @@
+Trimmomatic(forward) took 0h 0m 18s to run. 
+Trimmomatic(reverse) took 0h 0m 17s to make. 
+Secondary trimmings took 0h 0m 5s to do.
+FastQC took 0h 0m 24s to make.
+fastq_screen took 0h 0m 59s to run.
+SAMfile(genome), IMIN44_S12_L001_1/IMIN44_S12_L001_double_single_end_genome.sam, took 0h 3m 3s to make. 
+SAM_to_indexed_BAM took 0h 0m 15s to run.

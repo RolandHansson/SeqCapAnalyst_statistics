@@ -1,0 +1,25 @@
+Trimmomatic(forward) took 0h 0m 24s to run. 
+Trimmomatic(reverse) took 0h 0m 21s to make. 
+Secondary trimmings took 0h 0m 5s to do.
+FastQC took 0h 0m 36s to make.
+fastq_screen took 0h 1m 39s to run.
+SAMfile(genome), BL37577_S10_L001_1/BL37577_S10_L001_double_single_end_genome.sam, took 0h 8m 44s to make. 
+SAM_to_indexed_BAM took 0h 1m 38s to run.
+Variant calling(genome) took 0h 3m 10s to do. 
+Sorting VCF took 0h 0m 0s to make.
+Variant calling (GATK) took 0h 5m 24s to make.
+Samtools pileup consensus file took 0h 13m 24s to make.
+BL37577_S10_L001_1/BL37577_S10_L001_exon_consensus2.fasta took 0h 0m 27s to make.
+BL37577_S10_L001_1/BL37577_S10_L001_exon_consensus2.fasta took 0h 35m 14s to make.
+Multifastas/consensus took 0h 16m 36s to make.
+multispecies multifastas took 0h 0m 10s to make.
+multi-species exon multifastas took 0h 0m 12s to make.
+multi-species exon capitalized multifastas took 0h 0m 10s to make.
+cigar_parser-derived multi-species exon multifastas took 0h 1m 25s to align.
+multi-species exon multifastas took 0h 1m 32s to align.
+capitalized multi-species exon multifastas took 0h 1m 38s to align.
+BL37577_S10_L001_1/BL37577_S10_L001_gene_length_and_id.tsv took 0h 0m 43s to make.
+Consensus/BL37577_S10_L001_1_BL37577_S10_L001_gene_length_and_id.tsv took 0h 0m 0s to make.
+Calculating statistics took 0h 1m 25s to do.
+Program as a whole took: 1h 35m 16s
+Compiling match statistics took 0h 0m 0s to align.

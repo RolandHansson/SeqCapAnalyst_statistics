@@ -1,0 +1,25 @@
+Trimmomatic(forward) 
+Trimmomatic(reverse) 
+Secondary trimmings 
+FastQC 
+fastq_screen 
+SAMfile(genome), BL37577_S10_L001_12/BL37577_S10_L001_double_single_end_genome.sam, 
+SAM_to_indexed_BAM 
+Variant calling(genome) 
+Sorting VCF 
+Variant calling (GATK) 
+Samtools pileup consensus file 
+BL37577_S10_L001_12/BL37577_S10_L001_exon_consensus2.fasta 
+BL37577_S10_L001_12/BL37577_S10_L001_exon_consensus2.fasta 
+Multifastas/consensus 
+multispecies multifastas 
+multi-species exon multifastas 
+multi-species exon capitalized multifastas 
+cigar_parser-derived multi-species exon multifastas 
+multi-species exon multifastas 
+capitalized multi-species exon multifastas 
+BL37577_S10_L001_12/BL37577_S10_L001_gene_length_and_id.tsv 
+Consensus/BL37577_S10_L001_12_BL37577_S10_L001_gene_length_and_id.tsv 
+Calculating statistics 
+Program as a whole 
+Compiling match statistics 

@@ -1,0 +1,25 @@
+Trimmomatic(forward) took 0h 0m 3s to run. 
+Trimmomatic(reverse) took 0h 0m 4s to make. 
+Secondary trimmings took 0h 0m 4s to do.
+FastQC took 0h 0m 29s to make.
+fastq_screen took 0h 0m 16s to run.
+SAMfile(genome), IMIN44_S12_L001_12/IMIN44_S12_L001_double_single_end_genome.sam, took 0h 0m 32s to make. 
+SAM_to_indexed_BAM took 0h 1m 38s to run.
+Variant calling(genome) took 0h 1m 41s to do. 
+Sorting VCF took 0h 0m 1s to make.
+Variant calling (GATK) took 0h 4m 8s to make.
+Samtools pileup consensus file took 0h 11m 2s to make.
+IMIN44_S12_L001_12/IMIN44_S12_L001_exon_consensus2.fasta took 0h 0m 39s to make.
+IMIN44_S12_L001_12/IMIN44_S12_L001_exon_consensus2.fasta took 0h 3m 0s to make.
+Multifastas/consensus took 0h 1m 14s to make.
+multispecies multifastas took 0h 0m 7s to make.
+multi-species exon multifastas took 0h 0m 8s to make.
+multi-species exon capitalized multifastas took 0h 0m 8s to make.
+cigar_parser-derived multi-species exon multifastas took 0h 1m 17s to align.
+multi-species exon multifastas took 0h 1m 17s to align.
+capitalized multi-species exon multifastas took 0h 1m 16s to align.
+IMIN44_S12_L001_12/IMIN44_S12_L001_gene_length_and_id.tsv took 0h 0m 25s to make.
+Consensus/IMIN44_S12_L001_12_IMIN44_S12_L001_gene_length_and_id.tsv took 0h 0m 0s to make.
+Calculating statistics took 0h 1m 46s to do.
+Program as a whole took: 0h 31m 34s
+Compiling match statistics took 0h 0m 0s to align.
