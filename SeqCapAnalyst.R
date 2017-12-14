@@ -1,3 +1,7 @@
+#####################################
+###   CORES VS SPEED
+
+
 setwd('/home/roland/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11')
 library(readr)
 benchmark <- read_delim("~/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11/benchmark_c.csv", 
@@ -22,7 +26,6 @@ species <- c("GC","PARUS1","EMCIR1","SISKIN1","PARUS1","GRW01","PARUS1","CraneSp
 samples <- names(probes[grep("001_identity", names(probes))])
 str(samples)
 str(species)
-table <- table(probes)
 identities <- probes[grep("identity|GC|Gene_Name", names(probes))]
 identities <- cbind(identities, species)
 str(identities)
@@ -261,21 +264,21 @@ str(unique_species)
 #Proof of concept
 #i <- "EMCIR1"
 i <- "PARUS1"
-col_num <- as.numeric(rownames(subset(spec_sam, species==i)[2]))
+col_num <- as.numeric(rownames(subset(spec_sam2, species==i)[2]))
 col_i <- rowMeans(subset(lengths, select = col_num+3), na.rm = FALSE)
 temp_length <- 100*col_i/lengths[,2]
 test <- subset(lengths, select = col_num+3)
 names <- colnames(test)
 test <- cbind(test, temp_length)
 test <- cbind(test, lengths$`%GC_ref`)
-colnames(gc_vs_length)<- c(names, "means", "%GC")
+colnames(test)<- c(names, "means", "%GC")
 str(test)
 
 
 #Make dataframe of mean length per species, instead of length per sample
 gc_vs_length <- lengths[,3]
 for (i in unique_species){
-  col_num <- as.numeric(rownames(subset(spec_sam, species==i)[2]))
+  col_num <- as.numeric(rownames(subset(spec_sam2, species==i)[2]))
   col_num+3
   col_i <- rowMeans(subset(lengths, select = col_num+3), na.rm = FALSE)
   temp_length <- 100*col_i/lengths[,2]
@@ -301,13 +304,24 @@ points(gc_vs_length$`%GC_ref`, gc_vs_length$PHSIB1, pch=".", cex=2, col="grey")
 points(gc_vs_length$`%GC_ref`, gc_vs_length$SYAT02, pch=".", cex=2, col="purple")
 points(gc_vs_length$`%GC_ref`, gc_vs_length$CXPIP23, pch=".", cex=2, col="brown")
 
+
 #Plot total mean coverage length vs GC Content, add linear regression. 
 valid <- c(2:9,11) #Remove 'undetermined' and 'GC' columns
 valid
 total_means <- rowMeans(subset(gc_vs_length, select = valid), na.rm = TRUE)
-plot(gc_vs_length$`%GC_ref`, total_means, pch=".", cex=2, ylim=c(-5,105), xlab="gene GC%", ylab="Percentage of exons covered by 3 reads")
-reg_gc_vs_length <- lm(total_means ~ gc_vs_length$`%GC_ref`)
-abline(reg_gc_vs_length, col="green")
+
+################################
+#### MAKE EXONS_VS_GC_GRAPH ####
+################################
+?dir.create
+?png
+?dev.print
+dir.create("graphs", showWarnings = FALSE)
+png(filename="graphs/exons_vs_gc.png", width=828, height=504)
+  plot(gc_vs_length$`%GC_ref`, total_means, pch=".", cex=2, ylim=c(-5,105), xlab="gene GC%", ylab="Percentage of exons covered by 3 reads")
+  reg_gc_vs_length <- lm(total_means ~ gc_vs_length$`%GC_ref`)
+  abline(reg_gc_vs_length, col="green")
+
 
 #Add formula for linear regression, confidence value, to plot.
 coef(reg_gc_vs_length)
@@ -327,6 +341,7 @@ rp[3] = substitute(expression(italic(p) == p_val),
                    list(p_val = format(p, digits = 2)))[2]
 
 legend('bottomright', legend = rp, bty = 'n')
+dev.off()
 
 ######################################################
 ## Select good genes  ##
@@ -353,7 +368,7 @@ str(unique_species)
 #Make dataframe of mean length per species, instead of length per sample
 gc_vs_length <- lengths[,3]
 for (i in unique_species){
-  col_num <- as.numeric(rownames(subset(spec_sam, species==i)[2]))
+  col_num <- as.numeric(rownames(subset(spec_sam2, species==i)[2]))
   col_num+3
   col_i <- rowMeans(subset(lengths, select = col_num+3), na.rm = FALSE)
   temp_length <- 100*col_i/lengths[,2]
@@ -604,6 +619,13 @@ plot(probe_data$coverage, pch=".", cex=2)
 top_probes <- probe_data[probe_data$coverage > quantile(probe_data$coverage,prob=1-50/100),]
 bottom_probes <- probe_data[probe_data$coverage < quantile(probe_data$coverage,prob=1-50/100),]
 
+##############################
+### MAKE GC_VS_PROBE_GRAPH ###
+##############################
+
+dir.create("graphs", showWarnings = FALSE)
+png(filename="graphs/probes_vs_gc.png", width=828, height=504)
+
 plot(probe_data$GC, probe_data$coverage, pch=".", cex=2, ylim=c(-5,105), xlab="probe GC%", ylab="Percentage of probe covered by 3 reads")
 
 reg_gc_vs_probe_coverage <- lm(probe_means ~ gc_vs_probe_coverage$GC)
@@ -626,10 +648,13 @@ rp[3] = substitute(expression(italic(p) == p_val),
                    list(p_val = format(p, digits = 2)))[2]
 
 legend('bottomright', legend = rp, bty = 'n')
+dev.off()
 
+### Visualization of top_probes(kept) and bottom_probes(discarded)
 plot(probe_data$GC, probe_data$coverage, pch=".", cex=2, ylim=c(-5,105), xlab="gene GC%", ylab="Percentage of exon covered by 3 reads", col="black")
 points(bottom_probes$`GC`, bottom_probes$coverage, pch=".", cex=2, col="red")
 points(top_probes$`GC`, top_probes$coverage, pch=".", cex=2, col="blue")
+
 
 ##################################################
 ###  SORT AWAY BAD PROBES 
@@ -678,7 +703,7 @@ write.csv(probes_only_good, "good_probes.csv")
 
 library(readr)
 setwd('/home/roland/Malaria/SequenceCapture2AV4NU/test_execution_time_all_samples_oct25')
-setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria\\execution_times')
+#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria\\execution_times')
 times <- read_delim("times_with_seconds.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
 sizes <- read_delim("sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
 matches <- read_delim("match_stats.txt", " ", skip = 1, escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
