@@ -1,10 +1,9 @@
 #####################################
 ###   CORES VS SPEED
 
-
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11')
+setwd('.')
 library(readr)
-benchmark <- read_delim("~/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11/benchmark_c.csv", 
+benchmark <- read_delim("benchmark_test_sep11/benchmark_c.csv", 
                           "\t", escape_double = FALSE, trim_ws = TRUE)
 
 results <- table(benchmark)
@@ -15,10 +14,7 @@ plot(benchmark$Cores, benchmark$`Program as a whole`, col=as.factor(benchmark$Sa
 #####################################
 ###   PROBE SUITABILITY   
 
-
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('/home/roland/Malaria/SequenceCapture2AV4NU/test_oct11/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 library(readr)
 probes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 str(probes)
@@ -143,11 +139,10 @@ legend('topright', legend = rp, bty = 'n')
 #######################
 ## Investigate GC Vs Length 
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 library(readr)
 
-probes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(queryLength = col_integer()), trim_ws = TRUE, skip = 1)
+probes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 str(probes)
 
 lengths <- probes[grep("ength|GC|Gene_Name", names(probes))]
@@ -253,10 +248,9 @@ dev.off()
 ## Select good genes  ##
 ########################
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 library(readr)
-genes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(queryLength = col_integer()), trim_ws = TRUE, skip = 1)
+genes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 identities <- genes[grep("identity|GC|Gene_Name", names(genes))]
 identities <- identities[ which(identities$`%GC_ref`<40),]
 str(genes)
@@ -319,10 +313,9 @@ write.csv(top_genes, "top_genes.csv")
 #######################
 ## Gene GC Vs Identity 
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 library(readr)
-probes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(queryLength = col_integer()), trim_ws = TRUE, skip = 1)
+probes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 identities <- probes[grep("identity|GC|Gene_Name", names(probes))]
 identities <- identities[ which(identities$`%GC_ref`<40),]
 str(probes)
@@ -394,8 +387,7 @@ legend('bottomright', legend = rp, bty = 'n')
 ## Select good probes by genes ##
 #################################
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 library(readr)
 exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 probes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
@@ -459,17 +451,18 @@ str(probes)
 str(good_probes)
 write.csv(top_probes, "top_probes.csv")
 
+
+
 ######################################################
 ######################################################
 ## Select good probes by probes ##
 #################################
 
+setwd('.')
+library(readr)
 probes <- read_delim("probes_stats.tsv", 
                     "\t", escape_double = FALSE, col_names = FALSE, 
                     trim_ws = TRUE)
-library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
 probes_stats <- read_delim("probes_stats.tsv", "\t", escape_double = FALSE, trim_ws = TRUE)
 str(probes_stats)
 coverage <- probes_stats[grep("_coverage|GC|probe", names(probes_stats))]
@@ -560,19 +553,18 @@ points(bottom_probes$`GC`, bottom_probes$coverage, pch=".", cex=2, col="red")
 points(top_probes$`GC`, top_probes$coverage, pch=".", cex=2, col="blue")
 
 
+
 ##################################################
 ###  SORT AWAY BAD PROBES 
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-probe_db <- read_delim("~/bin/SeqCapAnalyst/probe_to_exon_to_gene.list", "\t", escape_double = FALSE, col_names = FALSE, na = "NA", trim_ws = TRUE)
+setwd('.')
+probe_db <- read_delim("probe_to_exon_to_gene.list", "\t", escape_double = FALSE, col_names = FALSE, na = "NA", trim_ws = TRUE)
 colnames(probe_db) <- c("probe_name","probe_pos","exon_pos","gene_name")
-#View(probe_db)
 str(probe_db)
 
 # Find good genes
-genes <- read_delim("/home/roland/Malaria/SequenceCapture2AV4NU/Consensus/gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(queryLength = col_integer()), trim_ws = TRUE, skip = 1)
+genes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 valid <- c(2:9,11) #Remove 'undetermined' and 'GC' columns
 valid
 gene_data <- genes[grep("Gene_Name", names(genes))]
@@ -606,11 +598,10 @@ write.csv(probes_only_good, "good_probes.csv")
 ### BENCHMARKING: TIMES VS READ NUMBERS
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/test_execution_time_all_samples_oct25')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria\\execution_times')
-times <- read_delim("times_with_seconds.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
-sizes <- read_delim("sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
-matches <- read_delim("match_stats.txt", " ", skip = 1, escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+setwd('.')
+times <- read_delim("test_execution_time_all_samples_oct25/times_with_seconds.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+sizes <- read_delim("test_execution_time_all_samples_oct25/sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+matches <- read_delim("test_execution_time_all_samples_oct25/match_stats.txt", " ", skip = 1, escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
 
 colnames(times) <- c("names", "h", "m", "s", "total_seconds")
 colnames(sizes) <- c("names", "sizes")
@@ -646,15 +637,17 @@ rp[3] = substitute(expression(italic(p) == p_val),
 
 legend('bottomright', legend = rp, bty = 'n')
 
+
+
 ##############################################################
+#######################################
 ### BENCHMARKING: TIMES VS FILESIZE
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/test_execution_time_all_samples_oct25')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria\\execution_times')
-times <- read_delim("times_with_seconds.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
-sizes <- read_delim("sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
-matches <- read_delim("match_stats.txt", " ", skip = 1, escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+setwd('.')
+times <- read_delim("test_execution_time_all_samples_oct25/times_with_seconds.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+sizes <- read_delim("test_execution_time_all_samples_oct25/sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+matches <- read_delim("test_execution_time_all_samples_oct25/match_stats.txt", " ", skip = 1, escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
 
 colnames(times) <- c("names", "h", "m", "s", "total_seconds")
 colnames(sizes) <- c("names", "sizes")
@@ -690,14 +683,15 @@ rp[3] = substitute(expression(italic(p) == p_val),
 
 legend('bottomright', legend = rp, bty = 'n')
 
+
+########################################################
 ##############################################
 ### BENCHMARKING INPUT SIZE VS OUTPUT SIZE
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/test_execution_time_all_samples_oct25')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria\\execution_times')
-sizes <- read_delim("sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
-folder_sizes <- read_delim("folder_sizes.txt", "\t", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+setwd('.')
+sizes <- read_delim("test_execution_time_all_samples_oct25/sizes_added.txt", " ", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
+folder_sizes <- read_delim("test_execution_time_all_samples_oct25/folder_sizes.txt", "\t", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE)
 
 colnames(sizes) <- c("names", "sizes")
 colnames(folder_sizes) <- c("names", "sizes", "trash")
@@ -733,14 +727,15 @@ legend('bottomright', legend = rp, bty = 'n')
 
 
 
-####################################################
+##########################################################################
+#######################################
 ### BENCHMARKING PIPELINE AS A WHOLE
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11')
+setwd('.')
 library(readr)
-benchmark1 <- read_delim("~/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11/benchmark_c.csv", 
+benchmark1 <- read_delim("benchmark_test_sep11/benchmark_c.csv", 
                          "\t", escape_double = FALSE, trim_ws = TRUE)
-benchmark2 <- read_delim("~/Malaria/SequenceCapture2AV4NU/benchmark_test_sep17/benchmark_d.tsv", 
+benchmark2 <- read_delim("benchmark_test_sep17/benchmark_d.tsv", 
                          "\t", escape_double = FALSE, trim_ws = TRUE)
 x <- as.data.frame(benchmark1$Sample)
 x <- cbind(x, benchmark1$Cores)
@@ -755,11 +750,11 @@ legend('topright', c("BL37590 (2.6GB)","BL37577 (1.4GB)","IMIN44 (0.7GB)") , lty
 
 ###############################################
 ### EXECUTION TIME OF DIFFERENT MODULES
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11')
+setwd('.')
 library(readr)
-benchmark1 <- read_delim("~/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11/benchmark_c.csv", 
+benchmark1 <- read_delim("benchmark_test_sep11/benchmark_c.csv", 
                          "\t", escape_double = FALSE, trim_ws = TRUE)
-benchmark2 <- read_delim("~/Malaria/SequenceCapture2AV4NU/benchmark_test_sep17/benchmark_d.tsv", 
+benchmark2 <- read_delim("benchmark_test_sep17/benchmark_d.tsv", 
                          "\t", escape_double = FALSE, trim_ws = TRUE)
 library(ggplot2)
 
@@ -777,12 +772,12 @@ p +geom_bar(stat = "identity", aes(fill = cores), position = "dodge") + coord_fl
 
 #################################################
 ### EFFICIENCY OF SUBSAMPLER 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/benchmark_test_sep11')
+setwd('.')
 
-IMIN_sub <- read_delim("~/Malaria/SequenceCapture2AV4NU/test_sub_sample/IMIN_sub_depth.txt", 
+IMIN_sub <- read_delim("test_sub_sample/IMIN_sub_depth.txt", 
                              "\t", escape_double = FALSE, col_names = FALSE, 
                              trim_ws = TRUE)
-IMIN_main <- read_delim("~/Malaria/SequenceCapture2AV4NU/test_sub_sample/IMIN_main_depth.txt", 
+IMIN_main <- read_delim("test_sub_sample/IMIN_main_depth.txt", 
                              "\t", escape_double = FALSE, col_names = FALSE, 
                              trim_ws = TRUE)
 colnames(IMIN_sub) <- c("scaffold", "pos", "reads")
@@ -793,13 +788,14 @@ points(IMIN_sub$reads ~ IMIN_sub$pos, pch=".", cex=2, col="#55FF5588")
 
 legend('topleft', c("Before subsampling","After subsampling") , lty=0, col=c("#555588","#55FF55"), bty='n', cex=1, pch=19)
 
-##############################################
+
+#########################################################
+##################################################
 ## PROBE GC VS PROBE COVERAGE, Majoris ONLY ##
-##############################################
+#############################################
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 probes_stats <- read_delim("probes_stats.tsv", "\t", escape_double = FALSE, trim_ws = TRUE)
 str(probes_stats)
 coverage <- probes_stats[grep("_coverage|GC|probe", names(probes_stats))]
@@ -949,14 +945,14 @@ rp[3] = substitute(expression(italic(p) == p_val),
 
 legend('bottomright', legend = rp, bty = 'n')
 
+
 ##############################################
 ## EXON GC VS EXON COVERAGE, Majoris ONLY ##
 ##############################################
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, col_types = cols(queryLength = col_integer()), trim_ws = TRUE, skip = 1)
+setwd('.')
+exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 str(exons)
 
 coverage <- exons[grep("coverage", names(exons))]
@@ -1109,20 +1105,23 @@ rp[3] = substitute(expression(italic(p) == p_val),
 legend('topright', legend = rp, bty = 'n')
 
 #############
-## With groups of about 50 
+## With 50 groups of about 50, MAJORIS only
 
 
 means_vs_gc <- data.frame(matrix(ncol = 3, nrow = 0))
 names(means_vs_gc) <- c("GC", "gc%", "mean")
-i <- 1
+i <- 3
 x <- i
-
+z3 <- list()
+str(gc_vs_probe_coverage$gc)
 for (i in 1:50){
   x <- i/2
   z1 <- gc_vs_probe_coverage[gc_vs_probe_coverage$gc > quantile(gc_vs_probe_coverage$gc,prob=1-i/50),]
   z2 <- z1[z1$gc <= quantile(gc_vs_probe_coverage$gc,prob=1-(i-1)/50),]
+  str(z2)
   x <- mean(z2[,1])
   y <- mean(z2[,2])
+  z3 <- c(z3, z2$gc)
   means_vs_gc[nrow(means_vs_gc) + 1,] = list(i, x, y)
 }
 plot(means_vs_gc$`gc%`, means_vs_gc$mean, pch=".", cex=5, ylim=c(0,60), xlim=c(5,60), xlab="exon GC%", ylab="Mean exon coverage", col=rgb(0, 0, 1, 1))
@@ -1148,14 +1147,104 @@ rp[3] = substitute(expression(italic(p) == p_val),
 
 legend('topright', legend = rp, bty = 'n')
 
-#############################################
-## PHYLOGENETIC DISTANCE VS EXON COVERAGE ##
+#############
+## With 100 groups of about 26, MAJORIS only
+
+means_vs_gc <- data.frame(matrix(ncol = 3, nrow = 0))
+names(means_vs_gc) <- c("GC", "gc%", "mean")
+i <- 2
+x <- i
+z3 <- list()
+z4 <- list()
+str(gc_vs_probe_coverage$gc)
+for (i in 1:100){
+  x <- i/2
+  z1 <- gc_vs_probe_coverage[gc_vs_probe_coverage$gc > quantile(gc_vs_probe_coverage$gc,prob=1-i/100),]
+  z2 <- z1[z1$gc <= quantile(gc_vs_probe_coverage$gc,prob=1-(i-1)/100),]
+  str(z2)
+  l <- length(z2$gc)
+  x <- mean(z2[,1])
+  y <- mean(z2[,2])
+  z3 <- c(z3, z2$gc)
+  z4 <- c(z4, l)
+  means_vs_gc[nrow(means_vs_gc) + 1,] = list(i, x, y)
+}
+plot(means_vs_gc$`gc%`, means_vs_gc$mean, pch=".", cex=5, ylim=c(0,60), xlim=c(5,60), xlab="exon GC%", ylab="Mean exon coverage", col=rgb(0, 0, 1, 1))
+
+reg_gc_vs_probe_coverage <- lm(means_vs_gc$mean ~ means_vs_gc$`gc%`)
+abline(reg_gc_vs_probe_coverage, col="green")
+
+coef(reg_gc_vs_probe_coverage)
+s <- summary(reg_gc_vs_probe_coverage)
+r2 <- s$adj.r.squared
+r2label = bquote(italic(R)^2 == .(format(r2, digits = 3)))
+p <- s$coefficients[2,4]
+plabel = bquote(italic(R)^2 == .(format(r2, digits = 3)))
+
+rp = vector('expression',3)
+rp[1] = substitute(expression(italic(y) == a_val + b_val %.% italic(x) ), 
+                   list(a_val = format(coef(reg_gc_vs_probe_coverage)[1], digits = 2), 
+                        b_val = format(coef(reg_gc_vs_probe_coverage)[2], digits = 3)))[2]
+rp[2] = substitute(expression(italic(R)^2 == r_val), 
+                   list(r_val = format(r2,dig=3)))[2]
+rp[3] = substitute(expression(italic(p) == p_val), 
+                   list(p_val = format(p, digits = 2)))[2]
+
+legend('topright', legend = rp, bty = 'n')
+
+#############
+## With groups of about 100, MAJORIS only, without messing with quantiles.
+
+means_vs_gc <- data.frame(matrix(ncol = 3, nrow = 0))
+names(means_vs_gc) <- c("GC", "gc%", "mean")
+i <- 1
+x <- i
+str(gc_vs_probe_coverage$gc)
+gc_vs_probe_coverage[0:1,]
+gc_vs_probe_sorted <- gc_vs_probe_coverage[order(gc_vs_probe_coverage$gc, decreasing=FALSE),]
+str(gc_vs_probe_sorted)
+bitesize <- length(gc_vs_probe_coverage$gc)/100
+for (i in 1:100){
+  x <- i
+  min <- round(bitesize*(i-1))+1
+  max <- round(bitesize*i)
+  z1 <- gc_vs_probe_sorted[min:max,]
+  x <- mean(z1[,1])
+  y <- mean(z1[,2])
+  means_vs_gc[nrow(means_vs_gc) + 1,] = list(i, x, y)
+}
+plot(means_vs_gc$`gc%`, means_vs_gc$mean, pch=".", cex=5, ylim=c(0,60), xlim=c(5,60), xlab="Mean exon GC%", ylab="Mean exon coverage (%)", col=rgb(0, 0, 1, 1))
+
+reg_gc_vs_probe_coverage <- lm(means_vs_gc$mean ~ means_vs_gc$`gc%`)
+abline(reg_gc_vs_probe_coverage, col="green")
+
+coef(reg_gc_vs_probe_coverage)
+s <- summary(reg_gc_vs_probe_coverage)
+r2 <- s$adj.r.squared
+r2label = bquote(italic(R)^2 == .(format(r2, digits = 3)))
+p <- s$coefficients[2,4]
+plabel = bquote(italic(R)^2 == .(format(r2, digits = 3)))
+
+rp = vector('expression',3)
+rp[1] = substitute(expression(italic(y) == a_val + b_val %.% italic(x) ), 
+                   list(a_val = format(coef(reg_gc_vs_probe_coverage)[1], digits = 2), 
+                        b_val = format(coef(reg_gc_vs_probe_coverage)[2], digits = 3)))[2]
+rp[2] = substitute(expression(italic(R)^2 == r_val), 
+                   list(r_val = format(r2,dig=3)))[2]
+rp[3] = substitute(expression(italic(p) == p_val), 
+                   list(p_val = format(p, digits = 2)))[2]
+
+legend('topright', legend = rp, bty = 'n')
+
+
+############################################################
+#####################################################
+## PHYLOGENETIC DISTANCE VS EXON COVERAGE ######
 #############################################
 
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 str(exons)
 
@@ -1238,15 +1327,17 @@ plot(cov_vs_dis$distance, cov_vs_dis$has50, pch=".", cex=5, log="y", xlab="SISKI
 #Genes with 40% coverage vs distance, logarithmic
 plot(cov_vs_dis$distance, cov_vs_dis$has30, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of genes with 30% coverage", col=rgb(0, 0, 1, 1))
 
-#################################################################
-## PHYLOGENETIC DISTANCE VS EXON COVERAGE, NEW DISTANCE VALUES ##
+
+
+#################################################################################3
+#############################################################################
+## PHYLOGENETIC DISTANCE VS EXON COVERAGE, NEW DISTANCE VALUES ########
 #################################################################
 
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, col_types = cols(queryLength = col_integer()), trim_ws = TRUE, skip = 1)
+setwd('.')
+exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 str(exons)
 
 coverage <- exons[grep("coverage", names(exons))]
@@ -1322,8 +1413,7 @@ plot(cov_vs_dis$distance, cov_vs_dis$has50, pch=".", cex=5, xlab="SISKIN1 Distan
 
 
 library(readr)
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU/Consensus')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
+setwd('.')
 exons <- read_delim("exon_length_and_id2.tsv", "\t", escape_double = FALSE, col_types = cols(length = col_integer()), trim_ws = TRUE, skip = 1)
 str(exons)
 
@@ -1391,23 +1481,23 @@ str(cov_vs_dis)
 cov_vs_dis <- cbind(cov_vs_dis, rel_coverage[,3])
 names(cov_vs_dis) <- c("sample", "has100", "has50", "has30", "distance")
 
-#Genes with 100% coverage vs distance 
-plot(cov_vs_dis$distance, cov_vs_dis$has100, pch=".", cex=5, xlab="SISKIN1 Distance", ylab="Number of genes with 100% coverage", col=rgb(0, 0, 1, 1))
+#Exons with 100% coverage vs distance 
+plot(jitter(cov_vs_dis$distance,3), jitter(cov_vs_dis$has100,5), pch=".", cex=5, xlab="CytB distance (%) from SISKIN1", ylab="Number of exons with 100% coverage", col=rgb(0, 0, 1, 1))
 
-#Genes with 50% coverage vs distance
-plot(cov_vs_dis$distance, cov_vs_dis$has50, pch=".", cex=5, xlab="SISKIN1 Distance", ylab="Number of genes with 50% coverage", col=rgb(0, 0, 1, 1))
+#Exons with 50% coverage vs distance
+plot(cov_vs_dis$distance, cov_vs_dis$has50, pch=".", cex=5, xlab="SISKIN1 Distance", ylab="Number of exons with 50% coverage", col=rgb(0, 0, 1, 1))
 
-#Genes with 40% coverage vs distance
-plot(cov_vs_dis$distance, cov_vs_dis$has30, pch=".", cex=5, xlab="SISKIN1 Distance", ylab="Number of genes with 30% coverage", col=rgb(0, 0, 1, 1))
+#Exons with 40% coverage vs distance
+plot(cov_vs_dis$distance, cov_vs_dis$has30, pch=".", cex=5, xlab="SISKIN1 Distance", ylab="Number of exons with 30% coverage", col=rgb(0, 0, 1, 1))
 
-#Genes with 100% coverage vs distance, logarithmic
-plot(cov_vs_dis$distance, cov_vs_dis$has100, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of genes with 100% coverage", col=rgb(0, 0, 1, 1))
+#Exons with 100% coverage vs distance, logarithmic
+plot(cov_vs_dis$distance, cov_vs_dis$has100, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of exons with 100% coverage", col=rgb(0, 0, 1, 1))
 
-#Genes with 50% coverage vs distance, logarithmic
-plot(cov_vs_dis$distance, cov_vs_dis$has50, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of genes with 50% coverage", col=rgb(0, 0, 1, 1))
+#Exons with 50% coverage vs distance, logarithmic
+plot(cov_vs_dis$distance, cov_vs_dis$has50, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of exons with 50% coverage", col=rgb(0, 0, 1, 1))
 
-#Genes with 40% coverage vs distance, logarithmic
-plot(cov_vs_dis$distance, cov_vs_dis$has30, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of genes with 30% coverage", col=rgb(0, 0, 1, 1))
+#Exons with 40% coverage vs distance, logarithmic
+plot(cov_vs_dis$distance, cov_vs_dis$has30, pch=".", cex=5, log="y", xlab="SISKIN1 Distance", ylab="Number of exons with 30% coverage", col=rgb(0, 0, 1, 1))
 
 ###############
 ### ABLINE LOGARITHMIC
@@ -1444,8 +1534,9 @@ rp[2] = substitute(expression(italic(R)^2 == r_val),
 rp[3] = substitute(expression(italic(p) == p_val), 
                    list(p_val = format(p, digits = 2)))[2]
 
-plot(jitter(x,5), jitter(y,5), pch=".", cex=5,log="y", xlab="SISKIN1 Distance", ylab="Number of genes with 100% coverage", col=rgb(0, 0, 1, 1))
+plot(jitter(x,5), jitter(y,5), pch=".", yaxt="n", cex=7,log="y", ylim=c(1,2000), xlab="CytB distance (%) from SISKIN1", ylab="Number of exons with 100% coverage", col=rgb(0, 0, 1, 1))
 lines(distances, fit3,lwd=2, col = "red", xlab = "Time (s)", ylab = "Counts")
+axis(2, at=c(1,2,5,10,20,50,100,200,500,1000,2000),labels=TRUE)
 legend('topright', legend = rp, bty = 'n')
 
 
@@ -1482,10 +1573,12 @@ rp[2] = substitute(expression(italic(R)^2 == r_val),
                    list(r_val = format(r2,dig=3)))[2]
 rp[3] = substitute(expression(italic(p) == p_val), 
                    list(p_val = format(p, digits = 2)))[2]
-
-plot(jitter(x,5), jitter(y), pch=".", cex=5,log="y", ylim=c(10, 3000), xlab="SISKIN1 Distance", ylab="Number of genes with 50% coverage", col=rgb(0, 0, 1, 1))
+?jitter
+plot(jitter(x,5), jitter(y,5), pch=".", yaxt="n", cex=7,log="y", ylim=c(10, 3000), xlab="CytB distance (%) from SISKIN1", ylab="Number of exons with 50% coverage", col=rgb(0, 0, 1, 1))
 lines(distances, fit3,lwd=2, col = "red", xlab = "Time (s)", ylab = "Counts")
+axis(2, at=c(1,2,5,10,20,50,100,200,500,1000,2000),labels=TRUE)
 legend('topright', legend = rp, bty = 'n')
+
 
 #################################
 ### CATEGORY-SPECIFIC IDENTITY ###
@@ -1496,9 +1589,8 @@ library(readr)
 library(data.table)
 #install.packages("data.table")
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-genes <- read_delim("Consensus/gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
+setwd('.')
+genes <- read_delim("Consensus/gene_length_and_id.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 mips <- read_delim("genes_vs_mips2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 colnames(mips) <- c("gene","mips")
 #NOTE: Add CoxI etc to gene definition
@@ -1738,9 +1830,8 @@ library(readr)
 library(data.table)
 #install.packages("data.table")
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-genes <- read_delim("Consensus/gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
+setwd('.')
+genes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
 mips <- read_delim("genes_vs_mips2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 colnames(mips) <- c("gene","mips")
 #NOTE: Add CoxI etc to gene definition
@@ -1958,7 +2049,7 @@ legend_strings <- paste(color_vs_legend$class, ' (',color_vs_legend$slope, 'x)',
 legend('right', bty='n', legend = legend_strings, col = "black", cex = 1.0, pch = 21, pt.bg=color_vs_legend$color)
 
 #Save graph
-folder='/home/roland/Documents/graphs/'
+folder='graphs/'
 name="mips_coverage_has100_2"
 date=toString(Sys.Date())
 dev.copy(png, paste(folder, name, '_', date, sep=''))
@@ -2035,9 +2126,8 @@ library(readr)
 library(data.table)
 #install.packages("data.table")
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-genes <- read_delim("Consensus/gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
+setwd('.')
+genes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
 mips <- read_delim("genes_vs_mips2.tsv", "\t", escape_double = FALSE, trim_ws = TRUE, skip = 1)
 colnames(mips) <- c("gene","mips")
 #NOTE: Add CoxI etc to gene definition
@@ -2213,25 +2303,6 @@ for(i in mips_types){
   normalized_PARUS_50[[i]] <- 100*PARUS_has50/SISKIN_has50
 }
 
-mips_numbers <- as.numeric(c(SISKIN_vs_samples_50, PARUS_vs_samples_50))
-mips_samples <- c(rep("SISKIN", length(mips_types_b)), rep("PARUS", length(mips_types_b)) )
-mips_names <- c(mips_types_b, mips_types_b)
-mips_description <- subset(description, class %in% mips_types_b)$text
-
-#for(i, j in description$class, description$text){
-#if( i %in% mips_types_b ){mips_description <- c(mips_description, j) }
-#}
-mips_names <- c(mips_description, mips_description)
-mips_data <- data.frame(mips_names, mips_numbers, mips_samples)
-
-
-### PLOT
-
-library(ggplot2)
-#install.packages("ggplot2")
-p <-ggplot(mips_data, aes(mips_names, mips_numbers )) +geom_bar(stat = "identity", aes(fill = mips_samples), position = "dodge") + coord_flip()
-p
-
 ### NORMALIZED PARUS
 
 mips_numbers <- as.numeric(c(rep("100", length(mips_types_b)), normalized_PARUS_50))
@@ -2260,9 +2331,8 @@ library(readr)
 library(data.table)
 #install.packages("data.table")
 
-setwd('/home/roland/Malaria/SequenceCapture2AV4NU')
-#setwd('C:\\Documents and Settings\\Roland\\Dropbox\\Bioinformatics\\Malaria')
-genes <- read_delim("Consensus/gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
+setwd('.')
+genes <- read_delim("gene_length_and_id.tsv", "\t", escape_double = FALSE, col_types = cols(Gene_Length = col_integer()), trim_ws = TRUE, skip = 1)
 #NOTE: Add CoxI etc to gene definition
 str(genes)
 
@@ -2306,12 +2376,13 @@ name_species
 paste(name_species[,1],"_coverage", sep="")
 spec_sam3 <- data.frame(name_species[,2], paste(name_species[,1],"_coverage", sep=""), name_species[,4])
 names(spec_sam3) <- c("species", "name", "distance")
-
+spec_sam4 <- data.frame(name_species[,2], paste(name_species[,1],"_length", sep=""), name_species[,4])
+names(spec_sam4) <- c("species", "name", "distance")
 relevant_species <- c("EMCIR1", "SISKIN1", "PARUS1", "GRW01", "WW2", "PHSIB1", "SYAT02", "CXPIP23", "CraneSp")
 
 rel_coverage <- subset(spec_sam3, species %in% relevant_species)
 remove_this <- which(rel_coverage$name=="C00413_S5_L001_coverage")
-rel_coverage <- rel_coverage[-remove_this,]
+#rel_coverage <- rel_coverage[-remove_this,]
 
 ### CALCULATE PERCENTAGE
 #str(coverage_cells )
@@ -2324,34 +2395,35 @@ rel_coverage <- rel_coverage[-remove_this,]
 #str(coverage_percentage)
 
 coverage
-rel_coverage <- subset(spec_sam3, species %in% relevant_species)
+rel_length <- subset(spec_sam4, species %in% relevant_species)
 remove_this <- which(rel_coverage$name=="C00413_S5_L001_coverage")
-#rel_coverage <- rel_coverage[-remove_this,] 
+#rel_length <- rel_coverage[-remove_this,] 
 
 coverage_cells <- coverage[grep("_coverage", names(coverage))]
 
 ################################
 ### Total number of covered bases
 
-covered_bases <- genes[grep("_coverage", names(genes))]
+covered_bases <- genes[grep("_length", names(genes))]
 df <- as.data.frame(covered_bases)
 sample_list <- list()
 
-i <- rel_coverage$name[1]
+i <- rel_length$name[1]
 covered_bases_list <- data.frame(matrix(ncol = 2, nrow = 0))
 names(covered_bases_list) <- c("sample", "total_bases")
-for( i in rel_coverage$name)
+for( i in rel_length$name)
 {
   x <- sum(df[,i])
   covered_bases_list[nrow(covered_bases_list) + 1,] = list(i,x)
 }
 
-covered_bases_list <- cbind(covered_bases_list, rel_coverage$distance)
+covered_bases_list <- cbind(covered_bases_list, rel_length$distance)
 names(covered_bases_list) <- c("sample","total_bases","distance")
 plot(covered_bases_list$total_bases~covered_bases_list$distance)
 x <- covered_bases_list$distance
 y <- covered_bases_list$total_bases
-plot(jitter(x,2), jitter(y,4), pch=".", cex=5, xlab="SISKIN1 Distance", ylab="Total coverage", col=rgb(0, 0, 1, 1))
+plot(jitter(x,3), jitter(y,5), yaxt="n", pch=".", cex=7, xlab="CytB distance (%) from SISKIN1", ylab="Total coverage (bases)", col=rgb(0, 0, 1, 1))
+axis(2, at=c(0,250000,500000, 750000, 1000000,1500000,2000000),labels=TRUE)
 
 ######################################
 ### FOR COVERAGE X, HOW MANY GENES ARE COVERED BY AT LEAST Y SAMPLES? 
@@ -2459,3 +2531,153 @@ cut_hi_list <- hi_list[-remove_this,]
 write.csv(hi, "host_interaction.csv")
 plot(cut_hi_list$distance, cut_hi_list$hi_total, ylab="total host-interaction bases covered", xlab="phylogenetic distance")
 spec_sam3$distance
+
+
+###############################################################################################
+###############################################################################
+### WHAT IS THE DISTRIBUTION OF GC CONTENT IN SUCCESSFUL VS FAILED PROBES?
+# Note: Take strand into account. 
+# Load probe data for Majoris lineage, separate out sequence and average coverage.   
+library(readr)
+setwd('.')
+probes_stats <- read_delim("probes_stats.tsv", "\t", escape_double = FALSE, trim_ws = TRUE)
+probes_seqs <- read_delim("Ht_probes_c.csv", "\t", escape_double = FALSE, trim_ws = TRUE)
+str(probes_stats)
+probes_seqs$Coordinates <- substring(probes_seqs$Coordinates, 4) #Remove useless letters
+str(probes_seqs)
+coverage <- probes_stats[grep("_coverage|GC|probe", names(probes_stats))]
+str(coverage)
+
+samples3 <- names(probes_stats[grep("001_coverage", names(probes_stats))])
+str(samples3)
+species <- c("PARUS1","EMCIR1","SISKIN1","PARUS1","GRW01","PARUS1","CraneSp","WW2","SISKIN1","SISKIN1","PARUS1_PHSIB1","WW2","SISKIN1","PHSIB1","SYAT02", "?", "CXPIP23")
+
+name_species <- data.frame(matrix(ncol = 2, nrow = 0))
+names(name_species) <- c("name", "species")
+name_species[nrow(name_species) + 1,] = list("102-11C_S3_L001","SISKIN1")
+name_species[nrow(name_species) + 1,] = list("126-11c_S9_L001", "SISKIN1")
+name_species[nrow(name_species) + 1,] = list("1ES86798_S2_L001","PARUS1")
+name_species[nrow(name_species) + 1,] = list("1EV02973_S11_L001", "SYAT02")
+name_species[nrow(name_species) + 1,] = list("1EV02981_S8_L001", "WW2")
+name_species[nrow(name_species) + 1,] = list("2KK58589_S7_L001", "PARUS1_PHSIB1")
+name_species[nrow(name_species) + 1,] = list("2KR049010_S2_L001","EMCIR1")
+name_species[nrow(name_species) + 1,] = list("512022_S1_L001", "GRW01")
+name_species[nrow(name_species) + 1,] = list("BL37577_S10_L001","PHSIB1")
+name_species[nrow(name_species) + 1,] = list("BL37590_S4_L001","WW2")
+name_species[nrow(name_species) + 1,] = list("C00413_S5_L001","SISKIN1")
+name_species[nrow(name_species) + 1,] = list("C00434_S6_L001","SISKIN1")
+name_species[nrow(name_species) + 1,] = list("CC50362-2_S1_L001","PARUS1")
+name_species[nrow(name_species) + 1,] = list("CC50362-3_S4_L001","PARUS1")
+name_species[nrow(name_species) + 1,] = list("IMIN44_S12_L001","CXPIP23")
+name_species[nrow(name_species) + 1,] = list("Undetermined_S0_L001","?")
+name_species[nrow(name_species) + 1,] = list("ZL10_S3_L001","CraneSp")
+name_species
+paste(name_species[,1],"_coverage", sep="")
+spec_sam3 <- data.frame(name_species[,2], paste(name_species[,1],"_coverage", sep=""))
+names(spec_sam3) <- c("species", "name")
+
+relevant_species <- c("PARUS1", "WW2", "PHSIB1")
+#spec_sam3 <- data.frame(species, samples3)
+probe_name_and_sequence <- cbind(probes_seqs[,6],probes_seqs[,5], probes_seqs[,3] )
+str(probe_name_and_sequence)
+gc_vs_probe_coverage <- cbind(probes_stats[,2], probes_stats[,1])
+
+subset(spec_sam3, species %in% c("PARUS1", "WW2", "PHSIB1"))
+str(coverage)
+col_num <- as.numeric(rownames(subset(spec_sam3, species %in% relevant_species)[2]))
+col_num+2
+colnames(subset(coverage, select = col_num+2))
+col_i <- rowMeans(subset(coverage, select = col_num+2), na.rm = FALSE)
+names <- colnames(gc_vs_probe_coverage)
+col_i
+gc_vs_probe_coverage <- cbind(gc_vs_probe_coverage, col_i)
+colnames(gc_vs_probe_coverage)<- c(names, "MAJORIS_coverage")
+
+str(gc_vs_probe_coverage)
+coverage_vs_seq <- merge(gc_vs_probe_coverage, probe_name_and_sequence, by.x = "probe", by.y = "Coordinates")
+str(coverage_vs_seq)
+# Divide probes into 3 tiers: coverage0-50, coverage_51-90, coverage_90-100
+coverage_vs_seq_0_50 <- coverage_vs_seq[coverage_vs_seq$MAJORIS_coverage<50, ]
+coverage_vs_seq_51_90 <- coverage_vs_seq[(coverage_vs_seq$MAJORIS_coverage>=50 & coverage_vs_seq$MAJORIS_coverage<90), ]
+coverage_vs_seq_91_100 <- coverage_vs_seq[coverage_vs_seq$MAJORIS_coverage>=90, ]
+# Alternatively, instead of coverage percentage: Best 10%, worst 50% and the rest.
+cutoff_50 <- quantile(coverage_vs_seq$MAJORIS_coverage,prob=1-50/100)
+cutoff_90 <- quantile(coverage_vs_seq$MAJORIS_coverage,prob=1-10/100)
+coverage_vs_seq_b_0_50 <- coverage_vs_seq[coverage_vs_seq$MAJORIS_coverage < cutoff_50,]
+coverage_vs_seq_b_51_90 <- coverage_vs_seq[(coverage_vs_seq$MAJORIS_coverage>=cutoff_50 & coverage_vs_seq$MAJORIS_coverage<cutoff_90), ]
+coverage_vs_seq_b_91_100 <- coverage_vs_seq[coverage_vs_seq$MAJORIS_coverage > cutoff_90,]
+
+plot(gc_vs_probe_coverage$GC, gc_vs_probe_coverage$MAJORIS, pch=".", cex=2, ylim=c(-5,105), xlim=c(-2,85), xlab="probe GC%", ylab="Percentage of probe covered by 3 reads", col=rgb(0, 0, 1, 0.33))
+
+data <- coverage_vs_seq_0_50$Sequence
+i<-1
+
+average_GC_position <- function(data){
+  data$Sequence <- gsub("[GC]", "1", data$Sequence)
+  data$Sequence <- gsub("[AT]", "0", data$Sequence)
+  cov <- data.frame(matrix(ncol = 2, nrow = 0))
+  for (i in 1:120 ){
+    x <- as.numeric(substr(data$Sequence, i, i))
+    cov[nrow(cov) + 1,] = list(i, 100*mean(x))  
+  }  
+  names(cov) <- c("position","GC")
+  return(cov)
+}
+?aggregate
+?reshape
+
+coverage_vs_seq_0_50_GC <- average_GC_position(coverage_vs_seq_0_50)  
+coverage_vs_seq_51_90_GC <- average_GC_position(coverage_vs_seq_51_90)  
+coverage_vs_seq_91_100_GC <- average_GC_position(coverage_vs_seq_91_100)  
+
+plot(coverage_vs_seq_0_50_GC$position, coverage_vs_seq_0_50_GC$GC,pch=25, bg="green")
+
+points(coverage_vs_seq_51_90_GC$position, coverage_vs_seq_51_90_GC$GC, pch=23,bg="blue")
+
+points(coverage_vs_seq_91_100_GC$position, coverage_vs_seq_91_100_GC$GC, pch=24,bg="red")
+
+# Display as 20-point 6-positions-per-point graphs. 
+plot(colSums(matrix(coverage_vs_seq_91_100_GC$GC, nrow=6))/6, ylim=c(28,34),pch=25, bg="green")
+points(colSums(matrix(coverage_vs_seq_51_90_GC$GC, nrow=6))/6, pch=23,bg="blue")
+points(colSums(matrix(coverage_vs_seq_0_50_GC$GC, nrow=6))/6, pch=24,bg="red")
+
+# Display as 10-point 12-positions-per-point graphs. 
+plot(c(12,24,36,48,60,72,84,96,108,120), colSums(matrix(coverage_vs_seq_91_100_GC$GC, nrow=12))/12, ylim=c(28,35),pch=25, bg="green", ylab="Average GC content over 12 probe bases", xlab="probe position")
+points(c(12,24,36,48,60,72,84,96,108,120), colSums(matrix(coverage_vs_seq_51_90_GC$GC, nrow=12))/12, pch=23,bg="blue")
+points(c(12,24,36,48,60,72,84,96,108,120), colSums(matrix(coverage_vs_seq_0_50_GC$GC, nrow=12))/12, pch=24,bg="red")
+legend_strings <- c("coverage>90%", "coverage between 50-90%", "coverage< 50%")
+color_vs_legend <- c("green","blue","red")
+legend('topright', bty='n', legend = legend_strings, col = "black", cex = 1.0, pch = 21, pt.bg=color_vs_legend)
+
+coverage_vs_seq_b_0_50_GC <- average_GC_position(coverage_vs_seq_b_0_50)  
+plot(coverage_vs_seq_b_0_50_GC$position, coverage_vs_seq_b_0_50_GC$GC)
+
+coverage_vs_seq_b_51_90_GC <- average_GC_position(coverage_vs_seq_b_51_90)  
+plot(coverage_vs_seq_b_51_90_GC$position, coverage_vs_seq_b_51_90_GC$GC)
+
+coverage_vs_seq_b_91_100_GC <- average_GC_position(coverage_vs_seq_b_91_100)  
+plot(coverage_vs_seq_b_91_100_GC$position, coverage_vs_seq_b_91_100_GC$GC)
+
+# Display as 10-point 12-positions-per-point graphs. 
+plot(c(12,24,36,48,60,72,84,96,108,120), colSums(matrix(coverage_vs_seq_b_91_100_GC$GC, nrow=12))/12, ylim=c(28,34),pch=25, bg="green", ylab="Average GC content over 12 probe bases", xlab="probe position")
+points(c(12,24,36,48,60,72,84,96,108,120), colSums(matrix(coverage_vs_seq_b_51_90_GC$GC, nrow=12))/12, pch=24,bg="blue")
+points(c(12,24,36,48,60,72,84,96,108,120), colSums(matrix(coverage_vs_seq_b_0_50_GC$GC, nrow=12))/12, pch=23,bg="red")
+legend_strings <- c("top 10%", "50-90%", "bottom 50%")
+color_vs_legend <- c("green","blue","red")
+legend('topright', bty='n', legend = legend_strings, col = "black", cex = 1.0, pch = 21, pt.bg=color_vs_legend)
+
+
+?gsub <- coverage_vs_seq_0_50$Sequence
+coverage_vs_seq_0_50$Sequence <- gsub("[GC]", "1", coverage_vs_seq_0_50$Sequence)
+coverage_vs_seq_0_50$Sequence <- gsub("[AT]", "0", coverage_vs_seq_0_50$Sequence)
+coverage_vs_seq_0_50_GC <- data.frame(matrix(ncol = 2, nrow = 0))
+names(coverage_vs_seq_0_50_GC) <- c("position", "GC")
+
+for (i in 1:120 ){
+  x <- substr(coverage_vs_seq_0_50$Sequence, i, i)
+  name_species[nrow(name_species) + 1,] = list(i,)  
+}
+
+# Possible additional divider: high-GC, mid-GC, low-GC would make for 18 groups. 
+
+
